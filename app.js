@@ -1,6 +1,5 @@
-// Base de datos local en el navegador (LocalStorage)
 let productos = JSON.parse(localStorage.getItem('kiosco_productos')) || [
-    { id_producto: 1, nombre: 'Salchi-arroz', precio_compra: 5, precio_venta: 8, stock: 15, stock_minimo: 5 }
+    { id_producto: 1, nombre: 'Producto de prueba', precio_compra: 5, precio_venta: 8, stock: 10, stock_minimo: 3 }
 ];
 
 let movimientos = JSON.parse(localStorage.getItem('kiosco_movimientos')) || [];
@@ -34,7 +33,7 @@ function cargarProductos() {
                 <td><button class="btn-delete" onclick="eliminarProducto(${p.id_producto})">Eliminar</button></td>
             </tr>`;
         
-        selectMov.innerHTML += `<option value="${p.id_producto}">${p.nombre} (Stock actual: ${p.stock})</option>`;
+        selectMov.innerHTML += `<option value="${p.id_producto}">${p.nombre} (Stock: ${p.stock})</option>`;
     });
 }
 
@@ -57,13 +56,13 @@ function cargarMovimientos() {
                 </tr>`;
         });
     } else {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b;">No hay movimientos registrados aún.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b;">Sin movimientos aún.</td></tr>`;
     }
 }
 
 function agregarProducto(e) {
     e.preventDefault();
-    const nuevoProducto = {
+    const nuevo = {
         id_producto: productos.length ? Math.max(...productos.map(p => p.id_producto)) + 1 : 1,
         nombre: document.getElementById('nombre').value,
         precio_compra: parseFloat(document.getElementById('precio_compra').value),
@@ -72,7 +71,7 @@ function agregarProducto(e) {
         stock_minimo: parseInt(document.getElementById('stock_minimo').value)
     };
 
-    productos.push(nuevoProducto);
+    productos.push(nuevo);
     guardarEnLocalStorage();
     document.getElementById('form-producto').reset();
     actualizarTodo();
@@ -86,33 +85,26 @@ function registrarMovimiento(e) {
 
     const producto = productos.find(p => p.id_producto === idProducto);
 
-    if (!producto) {
-        alert('Selecciona un producto válido');
-        return;
-    }
+    if (!producto) return alert('Selecciona un producto');
 
     if (tipo === 'Salida' && producto.stock < cantidad) {
-        alert('Stock insuficiente para realizar la venta');
-        return;
+        return alert('Stock insuficiente');
     }
 
-    // Actualizar stock
     if (tipo === 'Entrada') {
         producto.stock += cantidad;
     } else {
         producto.stock -= cantidad;
     }
 
-    // Registrar movimiento
-    const nuevoMovimiento = {
+    movimientos.push({
         id_movimiento: movimientos.length ? Math.max(...movimientos.map(m => m.id_movimiento)) + 1 : 1,
         producto: producto.nombre,
         tipo_movimiento: tipo,
         cantidad: cantidad,
         fecha: new Date().toISOString().split('T')[0]
-    };
+    });
 
-    movimientos.push(nuevoMovimiento);
     guardarEnLocalStorage();
     document.getElementById('form-movimiento').reset();
     actualizarTodo();
