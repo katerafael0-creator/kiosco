@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+input, select, button {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+input, select {
+    flex: 1 1 180px;
+}
+
+button {
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #1e40af;
+}
+
+.btn-delete {
+    background-color: #dc2626;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #475569;
+}
+
+.alert-box {
+    display: none;
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.alert-box ul {
+    margin-top: 8px;
+    padding-left: 20px;
+}
